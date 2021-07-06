@@ -10,39 +10,14 @@ let cycle = 0;
 let pY = 276;
 let pX = 276;
 
-let bottomPressed = false;
-let upPressed = false;
-let leftPressed = false;
-let rightPressed = false;
+let keyPressed = null;
 
 function keyDownHandler(e) {
-  if (e.key === 'Down' || e.key === 'ArrowDown') {
-    bottomPressed = true;
-  }
-  if (e.key === 'Up' || e.key === 'ArrowUp') {
-    upPressed = true;
-  }
-  if (e.key === 'Left' || e.key === 'ArrowLeft') {
-    leftPressed = true;
-  }
-  if (e.key === 'Right' || e.key === 'ArrowRight') {
-    rightPressed = true;
-  }
+  keyPressed = e.key;
 }
 
-function keyUpHandler(e) {
-  if (e.key === 'Down' || e.key === 'ArrowDown') {
-    bottomPressed = false;
-  }
-  if (e.key === 'Up' || e.key === 'ArrowUp') {
-    upPressed = false;
-  }
-  if (e.key === 'Left' || e.key === 'ArrowLeft') {
-    leftPressed = false;
-  }
-  if (e.key === 'Right' || e.key === 'ArrowRight') {
-    rightPressed = false;
-  }
+function keyUpHandler() {
+  keyPressed = null;
 }
 
 document.addEventListener('keydown', keyDownHandler);
@@ -53,46 +28,41 @@ img.src = SenseiWalk;
 
 img.addEventListener('load', () => {
   setInterval(() => {
-    if (bottomPressed) {
-      if (pY <= 552) {
-        pY += 10;
-      }
-      cycle = (cycle + 1) % shots;
-      return ctx.drawImage(img, cycle * spriteW, 0, spriteW, spriteH, pX, pY, 48, 48);
-    }
-
-    if (upPressed) {
-      if (pY >= 0) {
-        pY -= 10;
-      }
-      cycle = (cycle + 1) % shots;
-      return ctx.drawImage(img, cycle * spriteW, 144, spriteW, spriteH, pX, pY, 48, 48);
-    }
-
-    if (rightPressed) {
-      if (pX <= 552) {
-        pX += 10;
-      }
-      cycle = (cycle + 1) % shots;
-      return ctx.drawImage(img, cycle * spriteW, 96, spriteW, spriteH, pX, pY, 48, 48);
-    }
-
-    if (leftPressed) {
-      if (pX >= 0) {
-        pX -= 10;
-      }
-
-      cycle = (cycle + 1) % shots;
-      return ctx.drawImage(img, cycle * spriteW, 48, spriteW, spriteH, pX, pY, 48, 48);
-    }
-
-    // ctx.clearRect(0, 0, 600, 600);
     ctx.fillStyle = 'pink';
     ctx.fillRect(0, 0, 600, 600);
-    return ctx.drawImage(img, cycle * spriteW, 0, spriteW, spriteH, pX, pY, 48, 48);
-    // bottomPressed && ctx.drawImage(img, cycle * spriteW, 0, spriteW, spriteH, pX, pY, 48, 48);
-    // upPressed && ctx.drawImage(img, cycle * spriteW, 144, spriteW, spriteH, pX, pY, 48, 48);
-    // rightPressed && ctx.drawImage(img, cycle * spriteW, 96, spriteW, spriteH, pX, pY, 48, 48);
-    // leftPressed && ctx.drawImage(img, cycle * spriteW, 48, spriteW, spriteH, pX, pY, 48, 48);
+
+    let n = null;
+    cycle = (cycle + 1) % shots;
+    switch (keyPressed) {
+      case 'Down':
+      case 'ArrowDown':
+        if (pY <= 552) {
+          pY += 10;
+        }
+        return ctx.drawImage(img, cycle * spriteW, n, spriteW, spriteH, pX, pY, 48, 48);
+      case 'Up':
+      case 'ArrowUp':
+        if (pY >= 0) {
+          pY -= 10;
+        }
+        n = 3;
+        return ctx.drawImage(img, cycle * spriteW, 48 * n, spriteW, spriteH, pX, pY, 48, 48);
+      case 'Left':
+      case 'ArrowLeft':
+        if (pX >= 0) {
+          pX -= 10;
+        }
+        n = 1;
+        return ctx.drawImage(img, cycle * spriteW, 48 * n, spriteW, spriteH, pX, pY, 48, 48);
+      case 'Right':
+      case 'ArrowRight':
+        if (pX <= 552) {
+          pX += 10;
+        }
+        n = 2;
+        return ctx.drawImage(img, cycle * spriteW, 48 * n, spriteW, spriteH, pX, pY, 48, 48);
+      default:
+        return ctx.drawImage(img, cycle * spriteW, 48 * n, spriteW, spriteH, pX, pY, 48, 48);
+    }
   }, 120);
 });

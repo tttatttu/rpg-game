@@ -10,8 +10,6 @@ export default {
 
   once(event, callback) {
     this.pushEvent(event, [false, callback]);
-    // this.un();
-    // this.trigger();
   },
 
   un(event, subToUn) {

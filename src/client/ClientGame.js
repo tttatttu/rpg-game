@@ -1,19 +1,29 @@
-import CliendEngine from './ClientEngine';
+import ClientEngine from './ClientEngine';
+import ClientWorld from './ClientWorld';
+
 import sprites from '../configs/sprites';
 import levelCfg from '../configs/world.json';
-import ClientWorld from './ClientWorld';
+import gameObjects from '../configs/gameObjects.json';
 
 class ClientGame {
   constructor(cfg) {
-    Object.assign(this, { cfg });
+    Object.assign(this, {
+      cfg,
+      gameObjects,
+      player: null,
+    });
 
     this.engine = this.createEngine();
     this.map = this.createWorld();
     this.initEngine();
   }
 
+  setPlayer(player) {
+    this.player = player;
+  }
+
   createEngine() {
-    return new CliendEngine(document.getElementById(this.cfg.tagId));
+    return new ClientEngine(document.getElementById(this.cfg.tagId));
   }
 
   createWorld() {
@@ -22,10 +32,28 @@ class ClientGame {
 
   initEngine() {
     this.engine.loadSprites(sprites).then(() => {
-      this.engine.on('render', () => {
-        this.map.init();
+      this.map.init();
+
+      this.engine.on('render', (_, time) => {
+        this.map.render(time);
       });
       this.engine.start();
+      this.initKeys();
+    });
+  }
+
+  keyPressed(keydown, x, y) {
+    if (keydown) {
+      this.player.moveByCellCoord(x, y, (cell) => cell.findObjectsByType('grass').length);
+    }
+  }
+
+  initKeys() {
+    this.engine.input.onKey({
+      ArrowLeft: (keydown) => this.keyPressed(keydown, -1, 0),
+      ArrowRight: (keydown) => this.keyPressed(keydown, +1, 0),
+      ArrowUp: (keydown) => this.keyPressed(keydown, 0, -1),
+      ArrowDown: (keydown) => this.keyPressed(keydown, 0, +1),
     });
   }
 

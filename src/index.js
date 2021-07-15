@@ -8,15 +8,15 @@ import ClientWorld from './client/ClientWorld';
 import ClientEngine from './client/ClientEngine';
 import EventSourceMixin from './common/EventSourceMixin';
 
-const terrain = document.createElement('img');
-terrain.src = terrainAtlas;
-
-const spriteW = 48;
-const spriteH = 48;
-const shots = 3;
-let cycle = 0;
-let pY = 276;
-let pX = 276;
+// const terrain = document.createElement('img');
+// terrain.src = terrainAtlas;
+//
+// const spriteW = 48;
+// const spriteH = 48;
+// const shots = 3;
+// let cycle = 0;
+// let pY = 276;
+// let pX = 276;
 
 window.addEventListener('load', () => {
   ClientGame.init({ tagId: 'game' });

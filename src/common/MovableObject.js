@@ -1,5 +1,4 @@
-/* eslint-disable */
-import { clamp } from './util';
+import clamp from './util';
 import PositionedObject from './PositionedObject';
 
 class MovableObject extends PositionedObject {
@@ -18,7 +17,6 @@ class MovableObject extends PositionedObject {
 
         motionStartTime: 0,
         motionProgress: 1,
-        /* eslint-disable no-unused-expressions */
         clampToMap: true, // по умолчанию объект не должен вылетать за пределы карты
       },
       cfg,

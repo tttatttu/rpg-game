@@ -14,7 +14,6 @@ class ClientInput {
 
   onKeyDown(e) {
     this.keysPressed.add(e.code);
-    /* eslint-disable no-unused-expressions */
     this.keyHandlers[e.code] && this.keyHandlers[e.code](true);
     this.trigger('keydown', e);
   }

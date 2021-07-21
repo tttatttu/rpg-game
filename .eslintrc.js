@@ -9,6 +9,11 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    "object-curly-newline": ["error", { "multiline": true, "minProperties": 10 }]
+    'object-curly-newline': ['error', {'multiline': true, 'minProperties': 10}],
+    'max-len': ['error', {'comments': 115, 'ignoreComments': true, 'ignoreTrailingComments': true, 'code': 100}],
+    'implicit-arrow-linebreak': 'off',
+    'no-unused-vars': 'off',
+    'arrow-body-style': 'off',
+    'no-unused-expressions': ['error', {'allowShortCircuit': true}],
   },
 };

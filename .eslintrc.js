@@ -16,5 +16,6 @@ module.exports = {
     'no-unused-vars': 'off',
     'arrow-body-style': 'off',
     'no-unused-expressions': ['error', {'allowShortCircuit': true}],
+    'no-unsafe-optional-chaining': "error"
   },
 };

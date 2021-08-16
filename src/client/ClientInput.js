@@ -8,10 +8,8 @@ class ClientInput {
       keyStateHandlers: {}, // обработчики, срабатывающие каждый рендер, если нажата клавиша
       keyHandlers: {}, // обработчики при нажатии определенной клавиши
     });
-    canvas.addEventListener('keydown', (e) =>
-      this.onKeyDown(e), false);
-    canvas.addEventListener('keyup', (e) =>
-      this.onKeyUp(e), false);
+    canvas.addEventListener('keydown', (e) => this.onKeyDown(e), false);
+    canvas.addEventListener('keyup', (e) => this.onKeyUp(e), false);
   }
 
   onKeyDown(e) {

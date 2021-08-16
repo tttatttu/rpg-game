@@ -15,8 +15,7 @@ export default {
   un(event, subToUn) {
     const subs = this.subscribers;
     if (subs && subs[event]) {
-      subs[event] = subs[event].filter((sub) =>
-        sub !== subToUn);
+      subs[event] = subs[event].filter((sub) => sub !== subToUn);
     }
   },
 
@@ -24,11 +23,9 @@ export default {
     const subs = this.subscribers;
     if (subs && subs[event]) {
       // вызываем все обработчики
-      subs[event].forEach((sub) =>
-        sub[1](event, data, this));
+      subs[event].forEach((sub) => sub[1](event, data, this));
       // удаляем все одноразовые обработчики
-      subs[event] = subs[event].filter((sub) =>
-        sub[0]);
+      subs[event] = subs[event].filter((sub) => sub[0]);
     }
   },
 };

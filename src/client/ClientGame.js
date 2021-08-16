@@ -49,14 +49,10 @@ class ClientGame {
 
   initKeys() {
     this.engine.input.onKey({
-      ArrowLeft: (keydown) =>
-        keydown && this.keyPressed('left'),
-      ArrowRight: (keydown) =>
-        keydown && this.keyPressed('right'),
-      ArrowUp: (keydown) =>
-        keydown && this.keyPressed('down'),
-      ArrowDown: (keydown) =>
-        keydown && this.keyPressed('up'),
+      ArrowLeft: (keydown) => keydown && this.keyPressed('left'),
+      ArrowRight: (keydown) => keydown && this.keyPressed('right'),
+      ArrowUp: (keydown) => keydown && this.keyPressed('down'),
+      ArrowDown: (keydown) => keydown && this.keyPressed('up'),
     });
   }
 
@@ -77,8 +73,7 @@ class ClientGame {
 
       if (canMovie) {
         player.setState(dir);
-        player.once('motion-stopped', () =>
-          player.setState('main'));
+        player.once('motion-stopped', () => player.setState('main'));
       }
     }
   }

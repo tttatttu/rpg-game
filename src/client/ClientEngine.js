@@ -13,6 +13,8 @@ class ClientEngine {
       camera: new ClientCamera({ canvas, engine: this }),
       input: new ClientInput(canvas),
       game,
+      lastRenderTime: 0,
+      startTime: 0,
     });
 
     this.ctx = canvas.getContext('2d');
@@ -25,6 +27,11 @@ class ClientEngine {
   }
 
   loop(timestamp) {
+    if (!this.startTime) {
+      this.startTime = timestamp;
+    }
+
+    this.lastRenderTime = timestamp;
     const { ctx, canvas } = this;
     ctx.fillStyle = 'black';
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -59,7 +66,8 @@ class ClientEngine {
     return new Promise((resolve) => {
       const i = new Image();
       this.images[url] = i;
-      i.onload = () => resolve(i);
+      i.onload = () =>
+        resolve(i);
       i.src = url;
     });
   }

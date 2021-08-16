@@ -47,19 +47,40 @@ class ClientGame {
     });
   }
 
-  keyPressed(keydown, x, y) {
-    if (keydown) {
-      this.player.moveByCellCoord(x, y, (cell) => cell.findObjectsByType('grass').length);
-    }
-  }
-
   initKeys() {
     this.engine.input.onKey({
-      ArrowLeft: (keydown) => this.keyPressed(keydown, -1, 0),
-      ArrowRight: (keydown) => this.keyPressed(keydown, 1, 0),
-      ArrowUp: (keydown) => this.keyPressed(keydown, 0, -1),
-      ArrowDown: (keydown) => this.keyPressed(keydown, 0, 1),
+      ArrowLeft: (keydown) =>
+        keydown && this.keyPressed('left'),
+      ArrowRight: (keydown) =>
+        keydown && this.keyPressed('right'),
+      ArrowUp: (keydown) =>
+        keydown && this.keyPressed('down'),
+      ArrowDown: (keydown) =>
+        keydown && this.keyPressed('up'),
     });
+  }
+
+  keyPressed(dir) {
+    const dirs = {
+      left: [-1, 0],
+      right: [1, 0],
+      down: [0, -1],
+      up: [0, 1],
+    };
+
+    const { player } = this;
+
+    if (player && player.motionProgress === 1) {
+      const canMovie = player.moveByCellCoord(dirs[dir][0], dirs[dir][1], (cell) => {
+        return cell.findObjectsByType('grass').length;
+      });
+
+      if (canMovie) {
+        player.setState(dir);
+        player.once('motion-stopped', () =>
+          player.setState('main'));
+      }
+    }
   }
 
   static init(cfg) {

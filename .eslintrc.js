@@ -10,10 +10,12 @@ module.exports = {
   },
   rules: {
     'object-curly-newline': ['error', {'multiline': true, 'minProperties': 10}],
-    'max-len': ['error', {'comments': 115, 'ignoreComments': true, 'ignoreTrailingComments': true, 'code': 100}],
+    'max-len': ['error', {'comments': 115, 'ignoreComments': true, 'ignoreTrailingComments': true, 'code': 150}],
     'implicit-arrow-linebreak': 'off',
+    'no-return-assign': 'off',
     'no-unused-vars': 'off',
     'arrow-body-style': 'off',
     'no-unused-expressions': ['error', {'allowShortCircuit': true}],
+    'no-unsafe-optional-chaining': "error"
   },
 };

@@ -14,7 +14,9 @@ export default {
 
   un(event, subToUn) {
     const subs = this.subscribers;
-    if (subs && subs[event]) subs[event] = subs[event].filter((sub) => sub !== subToUn);
+    if (subs && subs[event]) {
+      subs[event] = subs[event].filter((sub) => sub !== subToUn);
+    }
   },
 
   trigger(event, data = null) {

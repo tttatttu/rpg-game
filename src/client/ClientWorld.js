@@ -27,8 +27,10 @@ class ClientWorld extends PositionedObject {
   init() {
     const { levelCfg, map, worldWidth, worldHeight } = this;
 
-    for (let row = 0; row < worldHeight; row += 1) {
-      for (let col = 0; col < worldWidth; col += 1) {
+    // eslint-disable-next-line no-plusplus
+    for (let row = 0; row < worldHeight; row++) {
+      // eslint-disable-next-line no-plusplus
+      for (let col = 0; col < worldWidth; col++) {
         if (!map[row]) {
           map[row] = [];
         }
@@ -80,25 +82,33 @@ class ClientWorld extends PositionedObject {
       /* eslint-enable */
     }
 
-    engine.renderCanvas(layerName, cameraPos, { x: 0, y: 0, width: cameraPos.width, height: cameraPos.height });
+    engine.renderCanvas(layerName, cameraPos, {
+      x: 0,
+      y: 0,
+      width: cameraPos.width,
+      height: cameraPos.height,
+    });
   }
 
   renderDynamicLayer(time, layerId, rangeCells) {
     const { map, worldWidth, worldHeight } = this;
 
     if (!rangeCells) {
-      /*eslint-disable */
+      // eslint-disable-next-line no-param-reassign
       rangeCells = {
         startCell: this.cellAt(0, 0),
         endCell: this.cellAt(worldWidth - 1, worldHeight - 1),
       };
-      /* eslint-enable */
     }
 
     const { startCell, endCell } = rangeCells;
 
-    for (let { row } = startCell; row <= endCell.row; row += 1) {
-      for (let { col } = startCell; col <= endCell.col; col += 1) {
+    // eslint-disable-next-line no-plusplus
+    for (let { row } = startCell; row <= endCell.row; row++) {
+      // console.log(row)
+
+      // eslint-disable-next-line no-plusplus
+      for (let { col } = startCell; col <= endCell.col; col++) {
         map[row][col].render(time, layerId);
       }
     }
@@ -111,7 +121,7 @@ class ClientWorld extends PositionedObject {
   cellAtXY(x, y) {
     const { width, height, cellWidth, cellHeight } = this;
 
-    return this.cellAt((clamp(x, 0, width - 1) / cellWidth) || 0, (clamp(y, 0, height - 1) / cellHeight) || 0);
+    return this.cellAt(clamp(x, 0, width - 1) / cellWidth || 0, clamp(y, 0, height - 1) / cellHeight || 0);
   }
 
   getRenderRange() {
